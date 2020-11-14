@@ -1,18 +1,28 @@
 import Characters from "./components/characters";
+import Search from "./components/search";
 
-function App() {
+import React, { Component } from 'react'
 
+class App extends Component {
 
-  
-  return (
-    <div>
-      <Characters></Characters>
-      <h2>say my name</h2>
-    </div>
-  );
+  state = {
+    query : ""
+  }
+
+  setQuery = (query) => {
+    console.log("App : seting query",query)
+    this.setState({query})
+    console.log("App : query now is:",this.state.query)
+  }
+
+  render() {
+    return (
+      <div>
+              <Search query={this.state.query} setQuery={(query) => {this.setQuery(query)}}></Search>
+              <Characters query={this.state.query}></Characters>
+      </div>
+    )
+  }
 }
 
-async function init(){
-
-}
-export default App;
+export default App

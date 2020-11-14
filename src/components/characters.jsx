@@ -1,29 +1,30 @@
 import React, { Component } from 'react'
+import Card from './character'
+
+
 
 class Characters extends Component {
 
-    state = {data:['f']}
+    state = {chars:[]}
 
-    // constructor(props){
-    //     console.log("constoctor starting...")
-    //     super(props)
-    //     this.init()
-    //     console.log("constuctor ending...", this.state.data)
-    // }
-
-    async componentWillMount() {
-        let data = await this.init()
-        this.setState({data})
-        console.log("cwm:" , this.state.data)
-    }
-
-    componentDidMount() {
-        console.log("cdm:", this.state.data)
+ 
+    async componentDidMount() {
+       let chars = await this.getData()
+       this.setState({chars})
     }
     
+    async componentDidUpdate(prevProps, prevState) {
+        console.log("query in characters:", this.props.query)
+        if(this.props.query == prevProps.query)
+        return
+
+        console.log("updating...")
+        let chars = await this.getData(this.props.query)
+        this.setState({chars})
+    }
     
-    async init(){
-        let url = "https://www.breakingbadapi.com/api/characters"
+    async getData(query=""){
+        let url = "https://www.breakingbadapi.com/api/characters?name="+ query
         let res = await fetch(url)
         return res.json()
     }
@@ -31,12 +32,7 @@ class Characters extends Component {
     render() {
         return (
             <div>
-                walter white, jesse pinkman
-                <ul>
-        {this.state.data.map(c => <li>{c.name}
-        <img style={{width:"150px",   borderRadius: "4px"}} src={c.img}></img>
-        </li>)}
-                </ul>
+                {this.state.chars.map(c => <Card key={c.char_id} infos={c} ></Card>)}
             </div>
         )
     }
