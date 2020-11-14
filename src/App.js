@@ -2,11 +2,13 @@ import Characters from "./components/characters";
 import Search from "./components/search";
 
 import React, { Component } from 'react'
+import Episodes from "./components/episodes";
 
 class App extends Component {
 
   state = {
-    query : ""
+    query : "",
+    char_name: ""
   }
 
   setQuery = (query) => {
@@ -15,11 +17,17 @@ class App extends Component {
     console.log("App : query now is:",this.state.query)
   }
 
+  setCharName = (char_name) => {
+    this.setState({char_name})
+  }
+
   render() {
     return (
       <div>
+              <h2>check out my CSS skills yo!</h2>
               <Search query={this.state.query} setQuery={(query) => {this.setQuery(query)}}></Search>
-              <Characters query={this.state.query}></Characters>
+              <Characters query={this.state.query} setCharName={(char_name) => {this.setCharName(char_name)}}></Characters>
+              <Episodes char_name={this.state.char_name}></Episodes>
       </div>
     )
   }

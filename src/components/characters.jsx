@@ -29,10 +29,21 @@ class Characters extends Component {
         return res.json()
     }
 
+    handleClick(char_name){
+        this.props.setCharName(char_name)
+    }
+
     render() {
         return (
             <div>
-                {this.state.chars.map(c => <Card key={c.char_id} infos={c} ></Card>)}
+                {this.state.chars.map(c => {
+                return(
+                    <div onClick={() => this.handleClick(c.name)}>
+                        <Card key={c.char_id} infos={c}></Card>
+                    </div>
+                )
+
+                })}
             </div>
         )
     }
