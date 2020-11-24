@@ -1,51 +1,57 @@
-import React, { Component } from 'react'
-import Card from './character'
-
-
+import React, { Component } from "react"
+import Card from "./character"
+import "../styles/characters.css"
 
 class Characters extends Component {
+  state = { chars: [] }
 
-    state = {chars:[]}
+  async componentDidMount() {
+    let chars = await this.getData()
+    this.setState({ chars })
+  }
 
- 
-    async componentDidMount() {
-       let chars = await this.getData()
-       this.setState({chars})
-    }
-    
-    async componentDidUpdate(prevProps, prevState) {
-        console.log("query in characters:", this.props.query)
-        if(this.props.query == prevProps.query)
-        return
+  async componentDidUpdate(prevProps, prevState) {
+    console.log("query in characters:", this.props.query)
+    if (this.props.query == prevProps.query) return
 
-        console.log("updating...")
-        let chars = await this.getData(this.props.query)
-        this.setState({chars})
-    }
-    
-    async getData(query=""){
-        let url = "https://www.breakingbadapi.com/api/characters?name="+ query
-        let res = await fetch(url)
-        return res.json()
-    }
+    console.log("updating...")
+    let chars = await this.getData(this.props.query)
+    this.setState({ chars })
+  }
 
-    handleClick(char_name){
-        this.props.setCharName(char_name)
-    }
+  async getData(query = "") {
+    let url = "https://www.breakingbadapi.com/api/characters?name=" + query
+    let res = await fetch(url)
+    return res.json()
+  }
 
-    render() {
-        return (
-            <div>
-                {this.state.chars.map(c => {
-                return(
-                    <div onClick={() => this.handleClick(c.name)}>
-                        <Card key={c.char_id} infos={c}></Card>
-                    </div>
-                )
+  handleClick(char_name) {
+    this.props.setCharName(char_name)
+  }
 
-                })}
+  render() {
+    return (
+      // <div>
+      //     {this.state.chars.map(c => {
+      //     return(
+      //         <div onClick={() => this.handleClick(c.name)}>
+      //             <Card key={c.char_id} infos={c}></Card>
+      //         </div>
+      //     )
+
+      //     })}
+      // </div>
+      <div className="prjs">
+        {this.state.chars.map((c) => (
+          <div key={c.char_id} className="prj">
+            <div className="wrapper">
+              <img src={c.img} alt="Avatar"></img>
             </div>
-        )
-    }
+            <b>{}</b>
+          </div>
+        ))}
+      </div>
+    )
+  }
 }
 export default Characters
