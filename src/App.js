@@ -1,8 +1,9 @@
-import Characters from "./components/characters"
-import Search from "./components/search"
-import "./App.css"
 import React, { Component } from "react"
-import Episodes from "./components/episodes"
+import Quote from "./components/quote"
+import Search from "./components/search"
+import Characters from "./components/characters"
+
+import "./App.css"
 
 class App extends Component {
   state = {
@@ -23,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <h2>check out my CSS skills yo!</h2>
+        <Quote></Quote>
         <Search
           query={this.state.query}
           setQuery={(query) => {
@@ -36,7 +37,6 @@ class App extends Component {
             this.setCharName(char_name)
           }}
         ></Characters>
-        <Episodes char_name={this.state.char_name}></Episodes>
       </div>
     )
   }

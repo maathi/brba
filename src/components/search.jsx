@@ -1,10 +1,7 @@
 import React, { Component } from "react"
 import "../styles/search.css"
-class Search extends Component {
-  componentDidUpdate(prevProps, prevState) {
-    console.log("query in search:", this.props.query)
-  }
 
+class Search extends Component {
   handleChange = (event) => {
     this.props.setQuery(event.target.value)
   }
@@ -13,7 +10,7 @@ class Search extends Component {
     return (
       <div className="search">
         <input
-          placeholder="Search character by name..."
+          placeholder="Say my name..."
           type="text"
           value={this.props.query}
           onChange={this.handleChange}

@@ -1,6 +1,12 @@
 body {
   background-color: #012b00;
+  font-family: "BB";
   color: white;
+}
+
+@font-face {
+  font-family: BB;
+  src: url(./fonts/Breaking\ Bad.ttf);
 }
 
 .container {

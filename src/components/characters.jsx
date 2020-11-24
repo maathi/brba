@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Card from "./character"
 import "../styles/characters.css"
 
 class Characters extends Component {
@@ -11,10 +10,8 @@ class Characters extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log("query in characters:", this.props.query)
-    if (this.props.query == prevProps.query) return
+    if (this.props.query === prevProps.query) return
 
-    console.log("updating...")
     let chars = await this.getData(this.props.query)
     this.setState({ chars })
   }
@@ -31,23 +28,13 @@ class Characters extends Component {
 
   render() {
     return (
-      // <div>
-      //     {this.state.chars.map(c => {
-      //     return(
-      //         <div onClick={() => this.handleClick(c.name)}>
-      //             <Card key={c.char_id} infos={c}></Card>
-      //         </div>
-      //     )
-
-      //     })}
-      // </div>
-      <div className="prjs">
+      <div className="chars">
         {this.state.chars.map((c) => (
-          <div key={c.char_id} className="prj">
+          <div key={c.char_id} className="char">
             <div className="wrapper">
-              <img src={c.img} alt="Avatar"></img>
+              <img src={c.img} alt=""></img>
             </div>
-            <b>{}</b>
+            <b>{c.name}</b>
           </div>
         ))}
       </div>
